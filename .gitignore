@@ -3,6 +3,7 @@
 
 # IntelliJ files
 *.idea
+*.iml
 out
 target/
 

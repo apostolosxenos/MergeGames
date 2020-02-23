@@ -39,18 +39,18 @@ public class JReader {
 
         JSONObject jsonObject = this.parseFile();
         JSONArray gamesArray = this.getArrayOfGames(jsonObject);
-        Map<String, JSONArray> dataMap = new HashMap<>();
+        Map<String, JSONArray> dataMap = new HashMap<String, JSONArray>();
         this.putDatesAndDataFromJsonArrayIntoMap(gamesArray,dataMap);
 
         return dataMap;
     }
 
-    // This method is used for test purposes
-    public Map<String, JSONArray> getResultsForConfirmation(String mergeString) {
+    // This method is used for test purposes (results.json)
+    public Map<String, JSONArray> getResultsForConfirmation(String identificationString) {
 
         JSONObject jsonContent = parseFile();
-        JSONObject oneAndTwoComparisonResults = (JSONObject) jsonContent.get(mergeString);
-        JSONArray gamesArray = (JSONArray) this.getArrayOfGames(oneAndTwoComparisonResults);
+        JSONObject jsonObjectForVerification = (JSONObject) jsonContent.get(identificationString);
+        JSONArray gamesArray = (JSONArray) this.getArrayOfGames(jsonObjectForVerification);
 
         Map<String, JSONArray> resultsMap = new HashMap<String, JSONArray>();
         this.putDatesAndDataFromJsonArrayIntoMap(gamesArray,resultsMap);
@@ -58,8 +58,8 @@ public class JReader {
         return resultsMap;
     }
 
-    private void putDatesAndDataFromJsonArrayIntoMap(JSONArray arr, Map<String, JSONArray> map) {
-        for (Object game : arr) {
+    private void putDatesAndDataFromJsonArrayIntoMap(JSONArray jsonArray, Map<String, JSONArray> map) {
+        for (Object game : jsonArray) {
             JSONObject gameObject = (JSONObject) game;
             String date = (String) gameObject.get("title");
             JSONArray dataArray = (JSONArray) gameObject.get("data");
